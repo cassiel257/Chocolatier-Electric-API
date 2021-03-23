@@ -13,6 +13,16 @@ def create_app(test_config=None):
     greeting="Welcome to The Chocolatier Electric!!!"
     return greeting
 
+  @app.route('/chocolates')
+  def get_chocolates():
+    recipe=Chocolate.query.all()
+    return recipe
+
+  @app.route('/chocolatiers')
+  def get_chocolatiers():
+    recipe=Chocolatier.query.all()
+    return recipe
+
   return app
 
 APP = create_app()
