@@ -56,6 +56,7 @@ class Chocolatier(db.Model):
   name = Column(String, unique=True, nullable=False)
   address = Column(String, nullable=False)
   website = Column(String)
+  facebook = Column(String, default='https://facebook.com')
   phone = Column(String, nullable=False)
   chef = Column(String)
   comments = Column(String)
