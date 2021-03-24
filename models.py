@@ -29,6 +29,7 @@ class Chocolate(db.Model):
   name = Column(String, nullable=False)
   chocolate_type = Column(String, nullable=False)
   vendor = Column(String, nullable=False)
+  vendor_id = db.Column(db.Integer, db.ForeignKey('Chocolatier.id', ondelete='CASCADE'))
   comments = Column(String)
 
   def __init__(self, name, chocolate_type=""):
@@ -60,6 +61,8 @@ class Chocolatier(db.Model):
   phone = Column(String, nullable=False)
   chef = Column(String)
   comments = Column(String)
+  chocolates = db.relationship('Chocolate', backref='chocolatier', passive_deletes=True)
+
 
   def __init__(self, name, address, website, phone, chef, comments=""):
     self.name = name
