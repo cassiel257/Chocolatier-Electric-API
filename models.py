@@ -2,6 +2,8 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 import os
+from datetime import datetime
+from sqlalchemy.sql import func
 
 database_path = os.environ['DATABASE_URL']
 
@@ -44,7 +46,8 @@ class Chocolate(db.Model):
       'name': self.name,
       'chocolate_type': self.chocolate_type,
       'vendor': self.vendor,
-      'comments': self.comments}
+      'comments': self.comments,
+      'vendor_id':self.vendor_id}
 
 '''
 Chocolatier
