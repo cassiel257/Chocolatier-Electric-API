@@ -140,6 +140,7 @@ def create_app(test_config=None):
         print("Exception is ", e)
         abort(422)
     except Exception as e:
+      print("Exception is ", e)
       abort(422)
 
   #PATCH route for chocolatiers, available to managers only
