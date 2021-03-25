@@ -43,18 +43,12 @@ def create_app(test_config=None):
       vendor=body.get('vendor', None)
       vendor_id=body.get('vendor_id', None)
       comments=body.get('comments',None)
-
-      try:
-        if chocolate is None:
-          abort(422)
-        else:
-          chocolate=Chocolate(name=name, chocolate_type=chocolate_type, vendor=vendor, vendor_id=vendor_id, comments=comments)
-          chocolate.insert()
-          return jsonify({'success':True, 'created': chocolate.id, 'total_chocolates':len(Chocolate.query.all())})
-      except Exception as e:
-        print("Exception is ", e)
-        abort(422)
+      chocolate=Chocolate(name=name, chocolate_type=chocolate_type, vendor=vendor, vendor_id=vendor_id, comments=comments)
+      chocolate.insert()
+      return jsonify({'success':True, 'created': chocolate.id, 'total_chocolates':len(Chocolate.query.all())})
+      
     except Exception as e:
+      print("Exception is ", e)
       abort(422)
 
   #POST search route for chocolate item, available to customers and managers
