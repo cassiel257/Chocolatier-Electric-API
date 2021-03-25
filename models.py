@@ -34,7 +34,7 @@ class Chocolate(db.Model):
   vendor_id = db.Column(db.Integer, db.ForeignKey('Chocolatier.id', ondelete='CASCADE'))
   comments = Column(String)
 
-  def __init__(self, name, chocolate_type=""):
+  def __init__(self, name, chocolate_type, vendor, vendor_id, comments=""):
     self.name = name
     self.chocolate_type = chocolate_type
     self.vendor = vendor
@@ -59,6 +59,9 @@ class Chocolate(db.Model):
       'vendor': self.vendor,
       'comments': self.comments,
       'vendor_id':self.vendor_id}
+  
+  def __repr__(self):
+    return '<Chocolate ' + str(self.id) + ' '+ str(self.name)+ '>'
 
 '''
 Chocolatier
@@ -106,3 +109,6 @@ class Chocolatier(db.Model):
       'phone': self.phone,
       'chef': self.chef,
       'comments': self.comments}
+
+  def __repr__(self):
+    return '<Chocolatier ' + str(self.id) + ' '+ str(self.name)+ '>'
