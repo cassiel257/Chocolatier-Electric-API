@@ -5,3 +5,5 @@ export ALGORITHMS=["RS256"]
 export FLASK_APP=app
 export FLASK_ENV=development
 export SQLALCHEMY_TRACK_MODIFICATIONS=False
+export CUSTOMER='update token here'
+export MANAGER='update token here'

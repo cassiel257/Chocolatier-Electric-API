@@ -7,7 +7,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 ## API Instructions and Examples
 -This API can be accessed at: https://chocolatier-electric.herokuapp.com/
 ### Authentication Required
-- **For project reviewers:** valid tokens for both roles will be stored in the setup.sh file
+- **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the setup.sh file
 - For general users: when accessing the API, you will be redirected to an Auth0 screen. 
 - Please register/login using your email address and a password, or through your Google account.
 - You will then be redirected back to the API, where you can now access the authorized endpoints described in the "Endpoints" section below.
@@ -133,19 +133,30 @@ Please keep reading for instructions on how to access and use our API, and how t
 - PATCH /chocolates/{id}
   - Sample curl:
   ```
-    curl --location --request PATCH 'https://chocolatier-electric.herokuapp.com/chocolatiers/1' \
+    curl --location --request PATCH 'https://chocolatier-electric.herokuapp.com/chocolates/1' \
     --header 'Content-Type: application/json' \
     --data-raw '{
     "name":"newer Test", 
-    "address":"test", 
-    "website":"test", 
-    "facebook":"test",
-    "phone":"test",
-    "chef":"test",
+    "chocolate_type":"test", 
+    "vendor":"test", 
+    "vendor_id":2,
     "comments":"test"
     }'
   ```
   - Sample response:
+    ```
+    {
+    "chocolate": [
+        "id":1,
+        "name":"test",
+        "chocolate_type":"test",
+        "vendor":"test",
+        "vendor_id":2,
+        "comments":"test"
+    ],
+    "success": true
+    }
+    ```
 - DELETE /chocolates/{id}
   - Sample curl:
     ```
