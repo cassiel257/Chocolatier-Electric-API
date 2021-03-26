@@ -29,7 +29,7 @@ def create_app(test_config=None):
   #def get_chocolates(payload):
   def get_chocolates():
     recipe=[c.format() for c in Chocolate.query.all()]
-    return jsonify({"Success":True, "Chocolates":recipe})
+    return jsonify({"Success":True, "Chocolates":recipe}),200
 
   #POST route for all chocolates, available to customers and managers
   @app.route('/chocolates', methods=['POST'])
@@ -45,7 +45,7 @@ def create_app(test_config=None):
       comments=body.get('comments',None)
       chocolate=Chocolate(name=name, chocolate_type=chocolate_type, vendor=vendor, vendor_id=vendor_id, comments=comments)
       chocolate.insert()
-      return jsonify({'success':True, 'created': chocolate.id, 'total_chocolates':len(Chocolate.query.all())})
+      return jsonify({'success':True, 'created': chocolate.id, 'name':chocolate.name, 'total_chocolates':len(Chocolate.query.all())}),200
       
     except Exception as e:
       print("Exception is ", e)
@@ -61,7 +61,7 @@ def create_app(test_config=None):
     try:
       results = Chocolate.query.filter(Chocolate.name.ilike('%{}%'.format(searchTerm))).all()
       chocolate=[result.format() for result in results]
-      return jsonify({ 'success':True, 'chocolates':chocolate})
+      return jsonify({ 'success':True, 'chocolates':chocolate}),200
     
     except Exception as e:
       print("Exception is ", e)
@@ -76,6 +76,7 @@ def create_app(test_config=None):
     name=body.get('name', None)
     chocolate_type=body.get('chocolate_type', None)
     vendor=body.get('vendor', None)
+    vendor_id=body.get('vendor_id', None)
     comments=body.get('comments',None)
     try:
         chocolate = Chocolate.query.filter(Chocolate.id == id).one_or_none()
@@ -84,6 +85,7 @@ def create_app(test_config=None):
         chocolate.name = name
         chocolate.chocolate_type = chocolate_type
         chocolate.vendor = vendor
+        chocolate.vendor_id = vendor_id
         chocolate.comments = comments
         chocolate.update()
         chocolate=list(chocolate.format())
@@ -112,7 +114,7 @@ def create_app(test_config=None):
   #def get_chocolatiers(payload):
   def get_chocolatiers():
     recipe=[c.format() for c in Chocolatier.query.all()]
-    return jsonify({"Success":True, "Chocolatiers":recipe})
+    return jsonify({"Success":True, "Chocolatiers":recipe}),200
 
   #POST route for chocolatiers, available to managers only
   @app.route('/chocolatiers', methods=['POST'])
@@ -135,7 +137,7 @@ def create_app(test_config=None):
         else:
           chocolatier=Chocolatier(name=name, address=address, website=website, facebook=facebook, phone=phone, chef=chef, comments=comments)
           chocolatier.insert()
-          return jsonify({'success':True, 'created': chocolatier.id, 'total_chocolatiers':len(Chocolatier.query.all())})
+          return jsonify({'success':True, 'created': chocolatier.id, 'name':chocolatier.name, 'total_chocolatiers':len(Chocolatier.query.all())}),200
       except Exception as e:
         print("Exception is ", e)
         abort(422)
