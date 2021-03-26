@@ -1,4 +1,4 @@
-
+# TODO: NOT COMPLETE. TESTS are currently a template from a previous project
 import os
 import unittest
 import json
@@ -48,8 +48,8 @@ class ChocolateTestCase(unittest.TestCase):
         print('***Test TearDown Completed***')
         pass
 
+    #TODO: REFERENCE these previous project tests to build new tests with token authentication
     """
-    TODO
     Write at least one test for each test for successful operation and for expected errors.
     """
     def test_get_questions(self):
