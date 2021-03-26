@@ -29,7 +29,7 @@ def create_app(test_config=None):
   #def get_chocolates(payload):
   def get_chocolates():
     recipe=[c.format() for c in Chocolate.query.all()]
-    return jsonify({"Success":True, "Chocolates":recipe}),200
+    return jsonify({"success":True, "Chocolates":recipe}),200
 
   #POST route for all chocolates, available to customers and managers
   @app.route('/chocolates', methods=['POST'])
@@ -114,7 +114,7 @@ def create_app(test_config=None):
   #def get_chocolatiers(payload):
   def get_chocolatiers():
     recipe=[c.format() for c in Chocolatier.query.all()]
-    return jsonify({"Success":True, "Chocolatiers":recipe}),200
+    return jsonify({"success":True, "Chocolatiers":recipe}),200
 
   #POST route for chocolatiers, available to managers only
   @app.route('/chocolatiers', methods=['POST'])

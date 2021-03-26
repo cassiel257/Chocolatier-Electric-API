@@ -320,7 +320,8 @@ Here is an example of an error response:
 - To use our sample database and test file, run the following commands from within the project directory (remember to start the virtual environment first):
   ```
   dropdb chocolate && createdb chocolate
-  psql chocolate<chocolate_restore.psql
+  pg_restore -U postgres -d chocolate chocolate_restore.psql
+  source setup.sh
   python test_app.py
   ```
 
