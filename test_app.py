@@ -22,7 +22,7 @@ class ChocolateTestCase(unittest.TestCase):
             'name':'truffle sublime',
             'chocolate_type':'dark chocolate',
             'vendor':'Divine Chocolate',
-            'vendor_id': 6,
+            'vendor_id':5,
             'comments': 'Best truffles ever!'
         }
         self.new_chocolatier = {
@@ -64,7 +64,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertTrue(data['Chocolates'])
 
     def test_chocolates_error_404(self):
-        res = self.client().get('/chocolates?q=toffee')
+        res = self.client().get('/chocolates/id')
         print('debugging invalid chocolates get request: '+str(res))
         data=json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 404)
@@ -83,7 +83,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertTrue(data['Chocolatiers'])
 
     def test_chocolatiers_error_404(self):
-        res = self.client().get('/chocolatiers/1')
+        res = self.client().get('/chocolatiers/id')
         print('debugging invalid chocolatier get request: '+str(res))
         data=json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 404)
@@ -170,7 +170,7 @@ class ChocolateTestCase(unittest.TestCase):
         print(chocolate)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], True)
+        self.assertEqual(data['deleted'], 3)
         self.assertEqual(chocolate, None)
 
     def test_delete_nonexistent_chocolate_422(self):
@@ -189,7 +189,7 @@ class ChocolateTestCase(unittest.TestCase):
         print(chocolatier)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], True)
+        self.assertEqual(data['deleted'], 4)
         self.assertEqual(chocolatier, None)
 
     def test_delete_nonexistent_chocolatier_422(self):
@@ -201,7 +201,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'Unprocessable. This request was formatted well, but may have semantic errors.')
 
     def test_successful_search(self):
-        res = self.client().post('/chocolates/search', json={'searchTerm': 'bunnies'})
+        res = self.client().post('/chocolates/search', json={'searchTerm':'choco'})
         print('debugging test_successful_search: '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
@@ -209,7 +209,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertTrue(data['chocolates'])
 
     def test_invalid_search(self):
-        res = self.client().post('/chocolates/search', json={'searchTerm': 3})
+        res = self.client().post('/chocolates/search')
         print('debugging test_invalid_search: '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 404)

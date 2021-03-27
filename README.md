@@ -7,7 +7,10 @@ Please keep reading for instructions on how to access and use our API, and how t
 ## API Instructions and Examples
 -This API can be accessed at: https://chocolatier-electric.herokuapp.com/
 ### Authentication Required
-- **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the setup.sh file
+- **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the setup.sh file.
+- Customer tokens have the permissions: get:chocolates, post:chocolates, patch:chocolates, get:chocolatiers
+- Manager tokens have the same permissions and the additional permissions: post:chocolatiers, patch:chocolatiers, delete:chocolatiers, delete:chocolates
+  
 - For general users: when accessing the API, you will be redirected to an Auth0 screen. 
 - Please register/login using your email address and a password, or through your Google account.
 - You will then be redirected back to the API, where you can now access the authorized endpoints described in the "Endpoints" section below.
@@ -320,7 +323,7 @@ Here is an example of an error response:
 - To use our sample database and test file, run the following commands from within the project directory (remember to start the virtual environment first):
   ```
   dropdb chocolate && createdb chocolate
-  pg_restore -U postgres -d chocolate chocolate_restore.psql
+  psql chocolate<chocolate.psql
   source setup.sh
   python test_app.py
   ```

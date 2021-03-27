@@ -57,8 +57,8 @@ class Chocolate(db.Model):
       'name': self.name,
       'chocolate_type': self.chocolate_type,
       'vendor': self.vendor,
-      'comments': self.comments,
-      'vendor_id':self.vendor_id}
+      'vendor_id':self.vendor_id,
+      'comments': self.comments}
   
   def __repr__(self):
     return '<Chocolate ' + str(self.id) + ' '+ str(self.name)+ '>'
@@ -85,6 +85,7 @@ class Chocolatier(db.Model):
     self.name = name
     self.address = address
     self.website = website
+    self.facebook = facebook
     self.phone = phone
     self.chef = chef
     self.comments = comments
@@ -106,6 +107,7 @@ class Chocolatier(db.Model):
       'name': self.name,
       'address': self.address,
       'website': self.website,
+      'facebook':self.facebook,
       'phone': self.phone,
       'chef': self.chef,
       'comments': self.comments}

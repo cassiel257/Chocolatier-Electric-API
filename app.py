@@ -69,7 +69,7 @@ def create_app(test_config=None):
 
   #PATCH route for all chocolates, available to customers and managers
   @app.route('/chocolates/<id>', methods=['PATCH'])
-  # @requires_auth("patch:chocolatess")
+  # @requires_auth("patch:chocolates")
   # def edit_chocolates(payload, id):
   def edit_chocolates(id):
     body = request.get_json()
@@ -168,8 +168,8 @@ def create_app(test_config=None):
         chocolatier.phone = phone
         chocolatier.comments = comments
         chocolatier.update()
-        chocolatier=list(chocolatier.format())
-        return jsonify({'success':True, 'chocolatier':chocolatier}), 200
+        edited_chocolatier=list(chocolatier.format())
+        return jsonify({'success':True, 'chocolatier':edited_chocolatier}), 200
     except Exception as e:
         print("Exception is ", e)
         abort(422)

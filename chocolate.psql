@@ -1,0 +1,246 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+-- Started on 2021-03-26 23:29:15
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 200 (class 1259 OID 16673)
+-- Name: Chocolate; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Chocolate" (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    chocolate_type character varying NOT NULL,
+    vendor character varying NOT NULL,
+    comments character varying,
+    vendor_id integer
+);
+
+
+ALTER TABLE public."Chocolate" OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 16679)
+-- Name: Chocolate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Chocolate_id_seq"
+    
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Chocolate_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 3013 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: Chocolate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Chocolate_id_seq" OWNED BY public."Chocolate".id;
+
+
+--
+-- TOC entry 202 (class 1259 OID 16681)
+-- Name: Chocolatier; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Chocolatier" (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    address character varying NOT NULL,
+    website character varying,
+    phone character varying NOT NULL,
+    chef character varying,
+    comments character varying,
+    facebook character varying
+);
+
+
+ALTER TABLE public."Chocolatier" OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 16687)
+-- Name: Chocolatier_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Chocolatier_id_seq"
+
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Chocolatier_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 3014 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: Chocolatier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Chocolatier_id_seq" OWNED BY public."Chocolatier".id;
+
+
+--
+-- TOC entry 204 (class 1259 OID 16689)
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.alembic_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public.alembic_version OWNER TO postgres;
+
+--
+-- TOC entry 2862 (class 2604 OID 16692)
+-- Name: Chocolate id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Chocolate" ALTER COLUMN id SET DEFAULT nextval('public."Chocolate_id_seq"'::regclass);
+
+
+--
+-- TOC entry 2863 (class 2604 OID 16693)
+-- Name: Chocolatier id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Chocolatier" ALTER COLUMN id SET DEFAULT nextval('public."Chocolatier_id_seq"'::regclass);
+
+
+--
+-- TOC entry 3003 (class 0 OID 16673)
+-- Dependencies: 200
+-- Data for Name: Chocolate; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Chocolate" (id, name, chocolate_type, vendor, comments, vendor_id) FROM stdin;
+1	brownies	bittersweet cocoa powder	Chamberlain	Best organic brownies in town	2
+2	tortes	dark chocolate	Chocolate Lab	Cool concept	4
+3	chocolate bunnies	milk chocolate	Christophe Artisan Chocolates	Excellent milk chocolates and truffles.	5
+\.
+
+
+--
+-- TOC entry 3005 (class 0 OID 16681)
+-- Dependencies: 202
+-- Data for Name: Chocolatier; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Chocolatier" (id, name, address, website, phone, chef, comments, facebook) FROM stdin;
+1	Brownie Belle	234 Sweets Avenue	website.com	234-445-5674	Belle Thackeray	Specializing in baked chocolate goods.	facebook.com
+2	Chamberlain's Chocolate	Atlanta, Georgia	https://www.chamberlainschocolate.com/	678-728-0100	Chamberlain staff	Ask about our catering service!	facebook.com
+3	Dillon's Chocolates	Wisconsin	https://dillonschocolates.com/	262-337-9639	Dillon Family	Non GMO and organic	facebook.com
+4	Chocolate Lab	Denver, Colorado	https://chocolatelabdenver.com	720-536-5037	Phil Simonson	Visit our restaurant!	facebook.com
+5	Christophe Artisan Chocolatier	Charleston, SC	https://christophechocolatier.com/	843-297-8674	Christophe	Now in multiple locations.	facebook.com
+\.
+
+
+--
+-- TOC entry 3007 (class 0 OID 16689)
+-- Dependencies: 204
+-- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.alembic_version (version_num) FROM stdin;
+858df6407383
+\.
+
+
+--
+-- TOC entry 3015 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: Chocolate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Chocolate_id_seq"', 1, false);
+
+
+--
+-- TOC entry 3016 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: Chocolatier_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Chocolatier_id_seq"', 1, false);
+
+
+--
+-- TOC entry 2865 (class 2606 OID 16695)
+-- Name: Chocolate Chocolate_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Chocolate"
+    ADD CONSTRAINT "Chocolate_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2867 (class 2606 OID 16697)
+-- Name: Chocolatier Chocolatier_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Chocolatier"
+    ADD CONSTRAINT "Chocolatier_name_key" UNIQUE (name);
+
+
+--
+-- TOC entry 2869 (class 2606 OID 16699)
+-- Name: Chocolatier Chocolatier_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Chocolatier"
+    ADD CONSTRAINT "Chocolatier_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2871 (class 2606 OID 16701)
+-- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alembic_version
+    ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- TOC entry 2872 (class 2606 OID 16702)
+-- Name: Chocolate Chocolate_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Chocolate"
+    ADD CONSTRAINT "Chocolate_vendor_id_fkey" FOREIGN KEY (vendor_id) REFERENCES public."Chocolatier"(id) ON DELETE CASCADE;
+
+
+-- Completed on 2021-03-26 23:29:15
+
+--
+-- PostgreSQL database dump complete
+--
+
