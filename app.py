@@ -17,7 +17,7 @@ def create_app(test_config=None):
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS')
     return response
 
-  #INDEX route--authentication should be requested here
+  #INDEX route--authentication should be requested for endpoints
   @app.route('/')
   def index():
     greeting="Welcome to The Chocolatier Electric!!!"
@@ -25,17 +25,15 @@ def create_app(test_config=None):
 
   #GET route for all chocolates, available to customers and managers
   @app.route('/chocolates')
-  #@requires_auth("get:chocolates")
-  #def get_chocolates(payload):
-  def get_chocolates():
+  @requires_auth("get:chocolates")
+  def get_chocolates(payload):
     recipe=[c.format() for c in Chocolate.query.all()]
     return jsonify({"success":True, "Chocolates":recipe}),200
 
   #POST route for all chocolates, available to customers and managers
   @app.route('/chocolates', methods=['POST'])
-  #@requires_auth("post:chocolates")
-  #def create_chocolate(payload):
-  def create_chocolate():
+  @requires_auth("post:chocolates")
+  def create_chocolate(payload):
     body = request.get_json()
     try:
       name=body.get('name', None)
@@ -51,11 +49,9 @@ def create_app(test_config=None):
       print("Exception is ", e)
       abort(422)
 
-  #POST search route for chocolate item, available to customers and managers
   @app.route('/chocolates/search', methods=['POST'])
-  #@requires_auth("post:chocolates")
-  #def search(payload):
-  def search():
+  @requires_auth("post:chocolates")
+  def search(payload):
     body=request.get_json()
     searchTerm=body.get('searchTerm','')
     try:
@@ -69,9 +65,8 @@ def create_app(test_config=None):
 
   #PATCH route for all chocolates, available to customers and managers
   @app.route('/chocolates/<id>', methods=['PATCH'])
-  # @requires_auth("patch:chocolates")
-  # def edit_chocolates(payload, id):
-  def edit_chocolates(id):
+  @requires_auth("patch:chocolates")
+  def edit_chocolates(payload, id):
     body = request.get_json()
     name=body.get('name', None)
     chocolate_type=body.get('chocolate_type', None)
@@ -96,9 +91,8 @@ def create_app(test_config=None):
 
   #DELETE route for all chocolates, available to managers only
   @app.route('/chocolates/<id>', methods=['DELETE'])
-  #@requires_auth("delete:chocolates")
-  #def delete_chocolates(payload, id):
-  def delete_chocolates(id):
+  @requires_auth("delete:chocolates")
+  def delete_chocolates(payload, id):
     try:
         chocolate=Chocolate.query.filter(Chocolate.id == id).one_or_none()
         if chocolate is None:
@@ -110,17 +104,15 @@ def create_app(test_config=None):
 
   #GET route for chocolatiers, available to customers and managers
   @app.route('/chocolatiers')
-  #@requires_auth("get:chocolatiers")
-  #def get_chocolatiers(payload):
-  def get_chocolatiers():
+  @requires_auth("get:chocolatiers")
+  def get_chocolatiers(payload):
     recipe=[c.format() for c in Chocolatier.query.all()]
     return jsonify({"success":True, "Chocolatiers":recipe}),200
 
   #POST route for chocolatiers, available to managers only
   @app.route('/chocolatiers', methods=['POST'])
-  #@requires_auth("post:chocolatiers")
-  #def create_chocolatier(payload):
-  def create_chocolatier():
+  @requires_auth("post:chocolatiers")
+  def create_chocolatier(payload):
     body = request.get_json()
     try:
       name=body.get('name', None)
@@ -147,9 +139,8 @@ def create_app(test_config=None):
 
   #PATCH route for chocolatiers, available to managers only
   @app.route('/chocolatiers/<id>', methods=['PATCH'])
-  # @requires_auth("patch:chocolatiers")
-  # def edit_chocolatiers(payload, id):
-  def edit_chocolatiers(id):
+  @requires_auth("patch:chocolatiers")
+  def edit_chocolatiers(payload, id):
     body = request.get_json()
     name=body.get('name', None)
     address=body.get('address', None)
@@ -176,9 +167,8 @@ def create_app(test_config=None):
 
   #DELETE route for chocolatiers, available to managers only
   @app.route('/chocolatiers/<id>', methods=['DELETE'])
-  #@requires_auth("delete:chocolatiers")
-  #def delete_chocolatiers(payload, id):
-  def delete_chocolatiers(id):
+  @requires_auth("delete:chocolatiers")
+  def delete_chocolatiers(payload, id):
     try:
         chocolatier=Chocolatier.query.filter(Chocolatier.id == id).one_or_none()
         if chocolatier is None:

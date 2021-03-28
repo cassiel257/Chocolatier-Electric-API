@@ -1,4 +1,3 @@
-# TODO: NOT COMPLETE. TESTS are currently a template from a previous project
 import os
 import unittest
 import json
@@ -11,7 +10,7 @@ from models import setup_db, Chocolate, Chocolatier
 class ChocolateTestCase(unittest.TestCase):
 
     def setUp(self):
-        """Define test variables and initialize app."""
+        
         self.app = create_app()
         self.client = self.app.test_client
         self.database_name = "chocolate"
@@ -35,7 +34,7 @@ class ChocolateTestCase(unittest.TestCase):
             'comments':'Try our new truffles!'
         }
 
-        # binds the app to the current context
+        
         with self.app.app_context():
             self.db = SQLAlchemy()
             self.db.init_app(self.app)
@@ -48,7 +47,7 @@ class ChocolateTestCase(unittest.TestCase):
         print('***Test TearDown Completed***')
         pass
 
-    #TODO: REFERENCE these previous project tests to build new tests with token authentication
+    #TODO: Add token authentication to each
     """
     Write at least one test for each test for successful operation and for expected errors.
     """

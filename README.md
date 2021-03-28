@@ -311,11 +311,17 @@ Here is an example of an error response:
 - Download our project code to your local machine by using the command ```git clone https://github.com/cassiel257/FullStackCapstone.git``` (or clicking the green "Code" button on Github and downloading a zip file).
 ### Installing Software Dependencies
 - To run our app locally, please install the latest version of Python 3 (which automatically includes the venv virtual environment tool).
+- You will need to install Postgres to work with the database. The project is set up to use the default username 'postgres' and password 'postgres'.
 - Within the project directory, create a virtual environment for this project using ```py -m venv env``` or ``python3 -m venv env``
 - Start your virtual environment with a command like ```source env/bin/activate``` or ```source env\Scripts\activate```(Windows)
 - Install the other necessary software by typing the command ``pip install -r requirements.txt``.
 ### Running the App Locally
 - From within the project directory, start your virtual environment if you haven't already.
+- To create the database and import sample data, use the commands:
+  ```
+  createdb chocolate
+  psql chocolate<chocolate.psql
+  ```
 - Export environment variables by running the setup script:type the command ```source setup.sh``` or ```bash setup.sh``` depending on your system.
 - Use the command ```flask run --reload``` or ```python app.py``` to start the server
 - Check that it is running by typing ```localhost:5000``` into your browser address bar and pressing Enter.

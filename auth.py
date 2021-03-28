@@ -4,10 +4,10 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-#Update and export these variables
+#TODO:Update and export these variables
 AUTH0_DOMAIN = 'sparkle-coffee.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'coffee'
+API_AUDIENCE = 'chocolate'
 
 #Define Auth Error
 class AuthError(Exception):
