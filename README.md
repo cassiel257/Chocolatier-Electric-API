@@ -7,7 +7,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 ## API Instructions and Examples
 -This API can be accessed at: https://chocolatier-electric.herokuapp.com/
 ### Authentication Required
-- **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the setup.sh file.
+- **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the ```setup.sh``` file.
 - Customer tokens have the permissions: get:chocolates, post:chocolates, patch:chocolates, get:chocolatiers
 - Manager tokens have the same permissions and the additional permissions: post:chocolatiers, patch:chocolatiers, delete:chocolatiers, delete:chocolates
   
@@ -62,7 +62,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 - GET /chocolates
   - Sample curl:
     ```
-    curl --location --request GET 'https://chocolatier-electric.herokuapp.com/chocolates'
+    curl --location --request GET 'https://chocolatier-electric.herokuapp.com/chocolates' --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     ```
   - Sample response:
     ```
@@ -100,6 +100,7 @@ Please keep reading for instructions on how to access and use our API, and how t
   - Sample curl:
     ```
     curl --location --request POST 'https://chocolatier-electric.herokuapp.com/chocolates/' \
+    --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     --header 'Content-Type: application/json' \
     --data-raw '{
     "name":"post test tortes",
@@ -114,6 +115,7 @@ Please keep reading for instructions on how to access and use our API, and how t
   - Sample curl:
   ```
     curl --location --request POST 'https://chocolatier-electric.herokuapp.com/chocolates/search' \
+    --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     --header 'Content-Type: application/json' \
     --data-raw '{"searchTerm":"choc"}'
   ```
@@ -137,6 +139,7 @@ Please keep reading for instructions on how to access and use our API, and how t
   - Sample curl:
   ```
     curl --location --request PATCH 'https://chocolatier-electric.herokuapp.com/chocolates/1' \
+    --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     --header 'Content-Type: application/json' \
     --data-raw '{
     "name":"newer Test", 
@@ -163,7 +166,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 - DELETE /chocolates/{id}
   - Sample curl:
     ```
-    curl --location --request DELETE 'https://chocolatier-electric.herokuapp.com/chocolates/1'
+    curl --location --request DELETE 'https://chocolatier-electric.herokuapp.com/chocolates/1' --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     ```
   - Sample response:
     ```
@@ -175,7 +178,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 - GET /chocolatiers
   - Sample curl:
   ```
-  curl --location --request GET 'https://chocolatier-electric.herokuapp.com/chocolatiers'
+  curl --location --request GET 'https://chocolatier-electric.herokuapp.com/chocolatiers' --header 'Authorization: Bearer ${MANAGER_TOKEN}'
   ```
   - Sample response:
   ```
@@ -234,6 +237,7 @@ Please keep reading for instructions on how to access and use our API, and how t
   - Sample curl:
     ```
     curl --location --request POST 'https://chocolatier-electric.herokuapp.com/chocolatiers' \
+    --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     --header 'Content-Type: application/json' \
     --data-raw '{
     "name":"Test",
@@ -250,6 +254,7 @@ Please keep reading for instructions on how to access and use our API, and how t
     ```
     
     curl --location --request PATCH 'https://chocolatier-electric.herokuapp.com/chocolatiers/1' \
+    --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     --header 'Content-Type: application/json' \
     --data-raw '{
         "name":"new Test", 
@@ -280,7 +285,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 - DELETE /chocolatiers/{id}
   - Sample curl:
     ```
-    curl --location --request DELETE 'https://chocolatier-electric.herokuapp.com/chocolatiers/1'
+    curl --location --request DELETE 'https://chocolatier-electric.herokuapp.com/chocolatiers/1' --header 'Authorization: Bearer ${MANAGER_TOKEN}'
     ```
   - Sample response:
     ```

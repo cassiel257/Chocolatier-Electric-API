@@ -26,7 +26,7 @@ def create_app(test_config=None):
   #GET route for all chocolates, available to customers and managers
   @app.route('/chocolates')
   @requires_auth("get:chocolates")
-  def get_chocolates():
+  def get_chocolates(payload):
     recipe=[c.format() for c in Chocolate.query.all()]
     return jsonify({"success":True, "Chocolates":recipe}),200
 
