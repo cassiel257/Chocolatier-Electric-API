@@ -17,7 +17,7 @@ class ChocolateTestCase(unittest.TestCase):
         
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_name = "chocolate"
+        self.database_name = "chocolate_test"
         self.database_path = "postgres://postgres:postgres@{}/{}".format('localhost:5432',self.database_name)
         setup_db(self.app, self.database_path)
 
@@ -66,7 +66,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertTrue(data['Chocolates'])
 
     def test_chocolates_error_404(self):
-        res = self.client().get('/chocolates/id', headers={'Authorization':'Bearer '+customer_token})
+        res = self.client().get('/chocolattes', headers={'Authorization':'Bearer '+customer_token})
         print('debugging invalid chocolates get request: '+str(res))
         data=json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 404)
@@ -85,7 +85,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertTrue(data['Chocolatiers'])
 
     def test_chocolatiers_error_404(self):
-        res = self.client().get('/chocolatiers/id', headers={'Authorization':'Bearer '+customer_token})
+        res = self.client().get('/chocolatier', headers={'Authorization':'Bearer '+customer_token})
         print('debugging invalid chocolatier get request: '+str(res))
         data=json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 404)
@@ -221,7 +221,7 @@ class ChocolateTestCase(unittest.TestCase):
     #TODO: RBAC specific tests
     #Customer auth success
     def test_create_chocolate_allowed(self):
-        res = self.client().post('/chocolates', json=self.new_chocolate)
+        res = self.client().post('/chocolates', json=self.new_chocolate, headers={'Authorization':'Bearer '+customer_token})
         print('debugging customer successful create chocolate: '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
@@ -231,7 +231,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(data['total_chocolates'], True)
     #Customer auth failure
     def test_create_chocolatier_not_allowed_401(self):
-        res = self.client().post('/chocolatiers', json=self.new_chocolatier)
+        res = self.client().post('/chocolatiers', json=self.new_chocolatier, headers={'Authorization':'Bearer '+customer_token})
         print('debugging customer create chocolatier no permission : '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 401)

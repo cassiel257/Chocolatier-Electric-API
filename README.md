@@ -328,9 +328,9 @@ Here is an example of an error response:
 ### Testing
 - To use our sample database and test file, run the following commands from within the project directory (remember to start the virtual environment first):
   ```
-  dropdb chocolate && createdb chocolate
-  psql chocolate<chocolate.psql
-  source setup.sh
+  dropdb chocolate_test && createdb chocolate_test
+  psql chocolate_test<chocolate.psql
+  source test_setup.sh
   python test_app.py
   ```
 
