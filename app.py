@@ -25,16 +25,15 @@ def create_app(test_config=None):
 
   #GET route for all chocolates, available to customers and managers
   @app.route('/chocolates')
-  #@requires_auth("get:chocolates")
+  @requires_auth("get:chocolates")
   def get_chocolates():
     recipe=[c.format() for c in Chocolate.query.all()]
     return jsonify({"success":True, "Chocolates":recipe}),200
 
   #POST route for all chocolates, available to customers and managers
   @app.route('/chocolates', methods=['POST'])
-  #@requires_auth("post:chocolates")
-  #def create_chocolate(payload):
-  def create_chocolate():
+  @requires_auth("post:chocolates")
+  def create_chocolate(payload):
     body = request.get_json()
     try:
       name=body.get('name', None)
