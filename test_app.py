@@ -21,7 +21,7 @@ class ChocolateTestCase(unittest.TestCase):
             'name':'truffle sublime',
             'chocolate_type':'dark chocolate',
             'vendor':'Divine Chocolate',
-            'vendor_id':5,
+            'vendor_id':1, 
             'comments': 'Best truffles ever!'
         }
         self.new_chocolatier = {
@@ -43,7 +43,6 @@ class ChocolateTestCase(unittest.TestCase):
         print('***Test Setup Completed***')
     
     def tearDown(self):
-        """Executed after reach test"""
         print('***Test TearDown Completed***')
         pass
 

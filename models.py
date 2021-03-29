@@ -38,6 +38,7 @@ class Chocolate(db.Model):
     self.name = name
     self.chocolate_type = chocolate_type
     self.vendor = vendor
+    self.vendor_id = vendor_id
     self.comments = comments
   
   def insert(self):
@@ -74,14 +75,14 @@ class Chocolatier(db.Model):
   name = Column(String, unique=True, nullable=False)
   address = Column(String, nullable=False)
   website = Column(String)
-  facebook = Column(String, default='https://facebook.com')
+  facebook = Column(String)
   phone = Column(String, nullable=False)
   chef = Column(String)
   comments = Column(String)
   chocolates = db.relationship('Chocolate', backref='chocolatier', passive_deletes=True)
 
 
-  def __init__(self, name, address, website, phone, chef, comments=""):
+  def __init__(self, name, address, website, facebook, phone, chef, comments=""):
     self.name = name
     self.address = address
     self.website = website

@@ -25,15 +25,16 @@ def create_app(test_config=None):
 
   #GET route for all chocolates, available to customers and managers
   @app.route('/chocolates')
-  @requires_auth("get:chocolates")
-  def get_chocolates(payload):
+  #@requires_auth("get:chocolates")
+  def get_chocolates():
     recipe=[c.format() for c in Chocolate.query.all()]
     return jsonify({"success":True, "Chocolates":recipe}),200
 
   #POST route for all chocolates, available to customers and managers
   @app.route('/chocolates', methods=['POST'])
-  @requires_auth("post:chocolates")
-  def create_chocolate(payload):
+  #@requires_auth("post:chocolates")
+  #def create_chocolate(payload):
+  def create_chocolate():
     body = request.get_json()
     try:
       name=body.get('name', None)
@@ -41,10 +42,14 @@ def create_app(test_config=None):
       vendor=body.get('vendor', None)
       vendor_id=body.get('vendor_id', None)
       comments=body.get('comments',None)
-      chocolate=Chocolate(name=name, chocolate_type=chocolate_type, vendor=vendor, vendor_id=vendor_id, comments=comments)
-      chocolate.insert()
-      return jsonify({'success':True, 'created': chocolate.id, 'name':chocolate.name, 'total_chocolates':len(Chocolate.query.all())}),200
-      
+      try:
+        chocolate=Chocolate(name=name, chocolate_type=chocolate_type, vendor=vendor, vendor_id=vendor_id, comments=comments)
+        chocolate.insert()
+        return jsonify({'success':True, 'created': chocolate.id, 'name':chocolate.name, 'total_chocolates':len(Chocolate.query.all())}),200
+        
+      except Exception as e:
+        print("Exception is ", e)
+        abort(422)
     except Exception as e:
       print("Exception is ", e)
       abort(422)
@@ -124,9 +129,6 @@ def create_app(test_config=None):
       comments=body.get('comments',None)
 
       try:
-        if chocolatier is None:
-          abort(422)
-        else:
           chocolatier=Chocolatier(name=name, address=address, website=website, facebook=facebook, phone=phone, chef=chef, comments=comments)
           chocolatier.insert()
           return jsonify({'success':True, 'created': chocolatier.id, 'name':chocolatier.name, 'total_chocolatiers':len(Chocolatier.query.all())}),200
@@ -170,11 +172,11 @@ def create_app(test_config=None):
   @requires_auth("delete:chocolatiers")
   def delete_chocolatiers(payload, id):
     try:
-        chocolatier=Chocolatier.query.filter(Chocolatier.id == id).one_or_none()
-        if chocolatier is None:
-            abort(404)
-        chocolatier.delete()
-        return jsonify({'success':True, 'deleted': chocolatier.id}), 200
+      chocolatier=Chocolatier.query.filter(Chocolatier.id == id).one_or_none()
+      if chocolatier is None:
+        abort(404)
+      chocolatier.delete()
+      return jsonify({'success':True, 'deleted': chocolatier.id}), 200
     except Exception as e:
       abort(422)
 #ERROR HANDLING
