@@ -160,8 +160,8 @@ def create_app(test_config=None):
         chocolatier.phone = phone
         chocolatier.comments = comments
         chocolatier.update()
-        edited_chocolatier=list(chocolatier.format())
-        return jsonify({'success':True, 'chocolatier':edited_chocolatier}), 200
+        #chocolatier=list(chocolatier.format())
+        return jsonify({'success':True, 'chocolatier':[chocolatier.format()]}), 200
     except Exception as e:
         print("Exception is ", e)
         abort(422)

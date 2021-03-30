@@ -334,10 +334,20 @@ Here is an example of an error response:
 - To use our sample database and test file, run the following commands from within the project directory (remember to start the virtual environment first):
   ```
   dropdb chocolate_test && createdb chocolate_test
-  psql chocolate_test<chocolate.psql
+  psql -U postgres chocolate_test<chocolate.psql
   source test_setup.sh
   python test_app.py
   ```
+  **Troubleshooting**: Sometimes importing a database backup can cause "null violation constraint" or other primary key errors, because it can interfere with sequencing. To reset the sequence enter the following commands from within the project directory: (replace 'chocolate' with 'test_chocolate' if restoring that database for testing)
+  ```
+  psql chocolate postgres
+  ```
+  - (enter 'postgres' as the password)
+  ```
+  SELECT SETVAL((SELECT PG_GET_SERIAL_SEQUENCE('"Chocolate"', 'id')), (SELECT (MAX("id") + 1) FROM "Chocolate"), FALSE);
+  SELECT SETVAL((SELECT PG_GET_SERIAL_SEQUENCE('"Chocolatier"', 'id')), (SELECT (MAX("id") + 1) FROM "Chocolatier"), FALSE);
+  ```
+  Source: 'SommerEngineering' on Stack Overflow: https://stackoverflow.com/questions/4448340/postgresql-duplicate-key-violates-unique-constraint
 
 
 ## How to Contribute

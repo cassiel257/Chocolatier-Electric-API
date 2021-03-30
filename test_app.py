@@ -28,9 +28,25 @@ class ChocolateTestCase(unittest.TestCase):
             'vendor_id':1, 
             'comments': 'Best truffles ever!'
         }
+        self.update_chocolate = {
+            'name':'Patch Test Praline',
+            'chocolate_type':'dark chocolate',
+            'vendor':'Divine Chocolate',
+            'vendor_id':1, 
+            'comments': 'Best pralines ever!'
+        }
         self.new_chocolatier = {
             'name':'Divine Chocolate',
             'address':'123 Sweets Lane',
+            'website':'www.testwebsite.com',
+            'facebook':'www.facebook.com',
+            'phone':'123-345-5678',
+            'chef':'Beth Carrington',
+            'comments':'Try our new truffles!'
+        }
+        self.update_chocolatier = {
+            'name':'Divine Chocolate Patch',
+            'address':'123 Sweets Lane Patch',
             'website':'www.testwebsite.com',
             'facebook':'www.facebook.com',
             'phone':'123-345-5678',
@@ -99,9 +115,9 @@ class ChocolateTestCase(unittest.TestCase):
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['created'], True)
-        self.assertEqual(data['name'], True)
-        self.assertEqual(data['total_chocolates'], True)
+        self.assertTrue(data['created'])
+        self.assertTrue(data['name'])
+        self.assertTrue(data['total_chocolates'])
 
 
     def test_create_chocolate_empty_422(self):
@@ -118,9 +134,9 @@ class ChocolateTestCase(unittest.TestCase):
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['created'], True)
-        self.assertEqual(data['name'], True)
-        self.assertEqual(data['total_chocolatiers'], True)
+        self.assertTrue(data['created'])
+        self.assertTrue(data['name'])
+        self.assertTrue(data['total_chocolatiers'])
 
     def test_create_chocolatier_empty_422(self):
         res = self.client().post('/chocolatiers', headers={'Authorization':'Bearer '+manager_token})
@@ -131,7 +147,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'Unprocessable. This request was formatted well, but may have semantic errors.')
 
     def test_update_chocolate(self):
-        res = self.client().patch('/chocolates/1', json={'comments':'updated comment'}, headers={'Authorization':'Bearer '+customer_token})
+        res = self.client().patch('/chocolates/1', json=self.update_chocolate, headers={'Authorization':'Bearer '+customer_token})
         print('debugging successful update chocolate: '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
@@ -148,7 +164,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'That method is not allowed for this endpoint.')
 
     def test_update_chocolatier(self):
-        res = self.client().patch('/chocolatiers/1', json={'comments':'updated comment'}, headers={'Authorization':'Bearer '+manager_token})
+        res = self.client().patch('/chocolatiers/1', json=self.update_chocolatier, headers={'Authorization':'Bearer '+manager_token})
         print('debugging successful update chocolatier: '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
@@ -173,7 +189,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted'], 2)
-        self.assertEqual(chocolate, None)
+    
 
     def test_delete_nonexistent_chocolate_422(self):
         res = self.client().delete('/chocolates/29480238', headers={'Authorization':'Bearer '+manager_token})
@@ -192,7 +208,7 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted'], 2)
-        self.assertEqual(chocolatier, None)
+
 
     def test_delete_nonexistent_chocolatier_422(self):
         res = self.client().delete('/chocolatiers/83970238', headers={'Authorization':'Bearer '+manager_token})
@@ -226,9 +242,9 @@ class ChocolateTestCase(unittest.TestCase):
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['created'], True)
-        self.assertEqual(data['name'], True)
-        self.assertEqual(data['total_chocolates'], True)
+        self.assertTrue(data['created'])
+        self.assertTrue(data['name'])
+        self.assertTrue(data['total_chocolates'])
     #Customer auth failure
     def test_create_chocolatier_not_allowed_401(self):
         res = self.client().post('/chocolatiers', json=self.new_chocolatier, headers={'Authorization':'Bearer '+customer_token})
@@ -248,7 +264,6 @@ class ChocolateTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted'], 3)
-        self.assertEqual(chocolate, None)
     #Manager failure(has permissions, but invalid token or some sort of corruption)
     def test_create_chocolatier_bad_token(self):
         res = self.client().post('/chocolatiers', json=self.new_chocolatier, headers={'Authorization':'Bearer '+bad_token})
