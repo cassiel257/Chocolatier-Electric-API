@@ -11,9 +11,16 @@ Please keep reading for instructions on how to access and use our API, and how t
 - Customer tokens have the permissions: get:chocolates, post:chocolates, patch:chocolates, get:chocolatiers
 - Manager tokens have the same permissions and the additional permissions: post:chocolatiers, patch:chocolatiers, delete:chocolatiers, delete:chocolates
   
-- For general users: when accessing the API, you will be redirected to an Auth0 screen. 
-- Please register/login using your email address and a password, or through your Google account.
-- You will then be redirected back to the API, where you can now access the authorized endpoints described in the "Endpoints" section below.
+- The URLs that will provide authentication tokens(you will find these in your browser address bar after the phrase 'token='):
+    - Live site: https://sparkle-coffee.us.auth0.com/authorize?audience=chocolate&response_type=token&client_id=p6Mrnz5sU1X4WYtKSuTiBG8LkSFt4Wf4&redirect_uri=https://chocolatier-electric.herokuapp.com
+
+    - Local site (for dev/testing): https://sparkle-coffee.us.auth0.com/authorize?audience=chocolate&response_type=token&client_id=p6Mrnz5sU1X4WYtKSuTiBG8LkSFt4Wf4&redirect_uri=http://localhost:5000
+
+  
+- For general users: when accessing the API, go to the first URL above.
+- You will be redirected to an Auth0 screen. Please register/login using your email address and a password, or through your Google account.
+- You will then be directed to the index page of the API, a simple welcome message. Locate the token in the browser bar and copy/paste it into the setup.sh file if you are running locally and want to export it, or paste it into Postman "Bearer Token" section under the 'Authentication' tab of your requests.
+- You can now access the authorized endpoints described in the "Endpoints" section below, by using
 - The security tokens expire after a few hours, so you may need to log in again to continue using the API.
 
 **ROLES**
@@ -333,12 +340,12 @@ Here is an example of an error response:
 ### Testing
 - To use our sample database and test file, run the following commands from within the project directory (remember to start the virtual environment first):
   ```
-  dropdb chocolate_test && createdb chocolate_test
-  psql -U postgres chocolate_test<chocolate.psql
-  source test_setup.sh
+  dropdb chocolate && createdb chocolate
+  psql -U postgres chocolate<chocolate.psql
+  source setup.sh
   python test_app.py
   ```
-  **Troubleshooting**: Sometimes importing a database backup can cause "null violation constraint" or other primary key errors, because it can interfere with sequencing. To reset the sequence enter the following commands from within the project directory: (replace 'chocolate' with 'test_chocolate' if restoring that database for testing)
+  **Troubleshooting**: Sometimes importing a database backup can cause "null violation constraint" or other primary key errors, because it can interfere with sequencing. To reset the sequence enter the following commands from within the project directory: (replace 'chocolate' with 'chocolate_test' if restoring that database for testing)
   ```
   psql chocolate postgres
   ```
