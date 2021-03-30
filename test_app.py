@@ -265,7 +265,7 @@ class ChocolateTestCase(unittest.TestCase):
     #Manager failure(has permissions, but invalid endpoint)
     def test_create_chocolatier_invalid(self):
         res = self.client().post('/chocolatiers/', json=self.new_chocolatier, headers={'Authorization':'Bearer '+manager_token})
-        print('debugging create chocolatier manager invalid token: '+str(res))
+        print('debugging create chocolatier manager invalid: '+str(res))
         data = json.loads(res.data.decode('utf-8'))
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
