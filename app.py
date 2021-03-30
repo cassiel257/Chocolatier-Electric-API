@@ -87,8 +87,8 @@ def create_app(test_config=None):
         chocolate.vendor_id = vendor_id
         chocolate.comments = comments
         chocolate.update()
-        chocolate=list(chocolate.format())
-        return jsonify({'success':True, 'chocolate':chocolate}), 200
+        #chocolate=list(chocolate.format())
+        return jsonify({'success':True, 'chocolate':[chocolate.format()]}), 200
     except Exception as e:
         print("Exception is ", e)
         abort(422)

@@ -27,7 +27,7 @@ Food made with chocolate, type of chocolate, vendor(foreign key/join table)
 class Chocolate(db.Model):
   __tablename__ = 'Chocolate'
 
-  id = Column(Integer, primary_key=True)
+  id = Column(Integer, primary_key=True, autoincrement=True)
   name = Column(String, nullable=False)
   chocolate_type = Column(String, nullable=False)
   vendor = Column(String, nullable=False)
@@ -71,8 +71,8 @@ Chocolatier details: vendor/biz name, address, chef, website, phone, reviews/com
 class Chocolatier(db.Model):
   __tablename__ = 'Chocolatier'
 
-  id = Column(Integer, primary_key=True)
-  name = Column(String, unique=True, nullable=False)
+  id = Column(Integer().with_variant(Integer, "postgres"), primary_key=True)
+  name = Column(String, nullable=False)
   address = Column(String, nullable=False)
   website = Column(String)
   facebook = Column(String)
