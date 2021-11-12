@@ -301,7 +301,7 @@ def create_app(test_config=None):
                 {
                     "success": False,
                     "error": 401,
-                    "message": "authentication failed",
+                    "message": "You don't have permission for this endpoint.",
                 }
             ),
             401,
