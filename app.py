@@ -143,9 +143,8 @@ def create_app(test_config=None):
 
     # POST route for chocolatiers, available to managers only
     @app.route("/chocolatiers", methods=["POST"])
-    # @requires_auth("post:chocolatiers")
-    # def create_chocolatier(payload):
-    def create_chocolatier():
+    @requires_auth("post:chocolatiers")
+    def create_chocolatier(payload):
         body = request.get_json()
         try:
             name = body.get("name", None)
