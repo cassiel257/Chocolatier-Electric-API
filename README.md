@@ -6,6 +6,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 
 ## API Instructions and Examples
 -This API can be accessed at: https://chocolatier-electric.herokuapp.com/
+-Only the Chocolatier route can be viewed pubicly with a get request. All other routes and methods required authentication detailed below.
 ### Authentication Required
 - **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the ```setup.sh``` file.
 - Customer tokens have the permissions: get:chocolates, post:chocolates, patch:chocolates, get:chocolatiers
@@ -336,7 +337,7 @@ Here is an example of an error response:
   ```
 - Export environment variables by running the setup script:type the command ```source setup.sh``` or ```bash setup.sh``` depending on your system.
 - Use the command ```flask run --reload``` or ```python app.py``` to start the server
-- Check that it is running by typing ```localhost:5000``` into your browser address bar and pressing Enter.
+- Check that it is running by typing ```localhost:5000``` or ```localhost:8080``` into your browser address bar and pressing Enter.
 ### Testing
 - To use our sample database and test file, run the following commands from within the project directory (remember to start the virtual environment first):
   ```
