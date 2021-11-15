@@ -31,8 +31,9 @@ def create_app(test_config=None):
 
     # GET route for all chocolates, available to customers and managers
     @app.route("/chocolates")
-    @requires_auth("get:chocolates")
-    def get_chocolates(payload):
+    # @requires_auth("get:chocolates")
+    # def get_chocolates(payload):
+    def get_chocolates():
         recipe = [c.format() for c in Chocolate.query.all()]
         return jsonify({"success": True, "Chocolates": recipe}), 200
 
@@ -136,10 +137,8 @@ def create_app(test_config=None):
 
     # GET route for chocolatiers, available to customers and managers
     @app.route("/chocolatiers")
-    # auth temporarily disabled for this endpoint
-    # @requires_auth("get:chocolatiers")
-    # def get_chocolatiers(payload):
-    def get_chocolatiers():
+    @requires_auth("get:chocolatiers")
+    def get_chocolatiers(payload):
         recipe = [c.format() for c in Chocolatier.query.all()]
         return jsonify({"success": True, "Chocolatiers": recipe}), 200
 
