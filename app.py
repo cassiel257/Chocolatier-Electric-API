@@ -39,9 +39,8 @@ def create_app(test_config=None):
 
     # POST route for all chocolates, available to customers and managers
     @app.route("/chocolates", methods=["POST"])
-    # @requires_auth("post:chocolates")
-    # def create_chocolate(payload):
-    def create_chocolate():
+    @requires_auth("post:chocolates")
+    def create_chocolate(payload):
         body = request.get_json()
         try:
             name = body.get("name", None)
@@ -95,9 +94,8 @@ def create_app(test_config=None):
 
     # PATCH route for all chocolates, available to customers and managers
     @app.route("/chocolates/<id>", methods=["PATCH"])
-    # @requires_auth("patch:chocolates")
-    # def edit_chocolates(payload, id):
-    def edit_chocolates(id):
+    @requires_auth("patch:chocolates")
+    def edit_chocolates(payload, id):
         body = request.get_json()
         name = body.get("name", None)
         chocolate_type = body.get("chocolate_type", None)
