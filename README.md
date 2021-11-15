@@ -6,7 +6,7 @@ Please keep reading for instructions on how to access and use our API, and how t
 
 ## API Instructions and Examples
 -This API can be accessed at: https://chocolatier-electric.herokuapp.com/
--Only the Chocolatier route can be viewed pubicly with a get request. All other routes and methods required authentication detailed below.
+-Only the Chocolates route can be viewed pubicly with a get request. All other routes and methods required authentication detailed below.
 ### Authentication Required
 - **For project reviewers:** valid tokens for both roles(Customer and Manager) will be stored in the ```setup.sh``` file.
 - Customer tokens have the permissions: get:chocolates, post:chocolates, patch:chocolates, get:chocolatiers
